@@ -30,9 +30,7 @@ export class ListPage {
   refresh(){
     this.items = [];
 
-    let data = this.db.getWorkouts().then((data) => {
-      console.log('list data nuevo', data);
-      
+    this.db.getWorkouts().then((data) => {
       if(data.rows.length > 0) {
         for(var i = 0; i < data.rows.length; i++) {
             this.items.push({name: data.rows.item(i).name, description: data.rows.item(i).description});

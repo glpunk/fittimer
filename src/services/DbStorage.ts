@@ -38,26 +38,14 @@ export class DbStorage{
     return this.db.executeSql("SELECT * FROM workouts", [])
                .then(response => response)
                .catch(this.handleError);
-
-    /*this.db.executeSql("SELECT * FROM workouts", [])
-    .then((data) => {
-        console.log(data);
-        return JSON.stringify(data);
-    }, (error) => {
-        return JSON.stringify(error);
-    }); */
   }
 
-  createWorkout(obj) {
+  createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
 
-    this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES ('wk 1', 'desc 1', 0, 'img', date('now'), date('now'), '')", []).then((data) => {
-        console.log('success', data);
-        return JSON.stringify(data);
-    }, (error) => {
-      console.log('error', error);
-        return JSON.stringify(error);
-    });
+    return this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES (?, ?, 0, 'img', date('now'), date('now'), '')", [obj.name, obj.description])
+               .then(response => response)
+               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

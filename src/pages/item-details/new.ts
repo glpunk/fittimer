@@ -27,8 +27,14 @@ export class NewWorkout {
 
     //TODO validations
 
-    let res = this.db.createWorkout(obj);
-    console.log(res);
+    this.db.createWorkout(obj).then((data) => {
+      if(data.rowsAffected == 1){
+        console.log('saved');
+      }
+      
+    }, (error) => {
+      console.log('list data error', error);
+    });
 
   }
 }
