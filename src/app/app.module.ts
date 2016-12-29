@@ -1,5 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { DbStorage} from '../services/DbStorage'
+
 import { MyApp } from './app.component';
 import { ItemDetailsPage } from '../pages/item-details/item-details';
 import { HomePage } from '../pages/home/home';
@@ -28,6 +30,6 @@ import { NewWorkout } from '../pages/item-details/new';
     TabsPage,
     NewWorkout
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [DbStorage, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

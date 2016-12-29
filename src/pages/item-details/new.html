@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Add new workout
+      New workout
     </ion-title>
     <ion-buttons end>
       <button ion-button (click)="dismiss()">
@@ -11,6 +11,22 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>New workout</h2>
+<ion-content>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Name" #workoutName></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input type="text" placeholder="Description"  #workoutDesc></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <div padding>
+    <button ion-button color="primary" block (click)="save({name: workoutName.value, description: workoutDesc.value})">Save</button>
+  </div>
+
 </ion-content>

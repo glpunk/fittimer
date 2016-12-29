@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-
 import { ViewController, NavParams } from 'ionic-angular';
 
+import { DbStorage } from '../../services/DbStorage'
 
 @Component({
   selector: 'new-workout',
@@ -9,15 +9,26 @@ import { ViewController, NavParams } from 'ionic-angular';
 })
 export class NewWorkout {
   character;
+  workouts;
 
   constructor(
     public params: NavParams,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public db: DbStorage
   ) {
-    console.log('params', this.params);
   }
 
   dismiss() {
     this.viewCtrl.dismiss();
+  }
+
+  save(obj) {
+    console.log('save', obj);
+
+    //TODO validations
+
+    let res = this.db.createWorkout(obj);
+    console.log(res);
+
   }
 }

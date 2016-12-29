@@ -4,6 +4,7 @@ import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { ItemDetailsPage } from '../item-details/item-details';
 import { NewWorkout } from '../item-details/new';
 
+import { DbStorage } from '../../services/DbStorage'
 
 @Component({
   selector: 'page-list',
@@ -12,23 +13,34 @@ import { NewWorkout } from '../item-details/new';
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+  items: Array<{name: string, description: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl: ModalController,
+    public db: DbStorage
+    ) {
+
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
+    this.refresh();
+  }
 
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
+  refresh(){
     this.items = [];
-    for(let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+
+    let data = this.db.getWorkouts().then((data) => {
+      console.log('list data nuevo', data);
+      
+      if(data.rows.length > 0) {
+        for(var i = 0; i < data.rows.length; i++) {
+            this.items.push({name: data.rows.item(i).name, description: data.rows.item(i).description});
+        }
+      }
+    }, (error) => {
+      console.log('list data error', error);
+    });
   }
 
   itemTapped(event, item) {
