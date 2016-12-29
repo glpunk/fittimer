@@ -1,17 +1,39 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Workouts</ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon name="{{item.icon}}" item-left></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-right>
-        {{item.note}}
-      </div>
+      <ion-card>
+        <img src="assets/img/squat1.jpg"/>
+        <ion-card-content>          
+          <ion-grid>
+            <ion-row>
+              <ion-col width-80>
+                <ion-card-title>
+                  {{item.title}}
+                </ion-card-title>
+                <p>
+                  {{item.note}}
+                </p>
+              </ion-col>
+              <ion-col width-20 text-center>
+              <ion-icon name="timer"></ion-icon>
+              00:00
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
     </button>
   </ion-list>
 </ion-content>
