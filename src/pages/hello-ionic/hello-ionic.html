@@ -1,26 +1,33 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Hello Ionic</ion-title>
+    <ion-title>fitTimer</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
 
-  <h3>Welcome to your first Ionic app!</h3>
+  <h3>Last activity</h3>
+  <ion-card>
+    <ion-card-header>
+      No activity
+    </ion-card-header>
+    <ion-card-content>
+      hey! let's move!
+    </ion-card-content>
+  </ion-card>
 
-  <p>
-    This starter project is our way of helping you get a functional app running in record time.
-  </p>
-  <p>
-    Follow along on the tutorial section of the Ionic docs!
-  </p>
-  <p>
-    <button ion-button color="primary" menuToggle>Toggle Menu</button>
-  </p>
+  <h3>Favorites workouts</h3>
+
+  <ion-card>
+    <ion-card-header>
+      Favorites
+    </ion-card-header>
+    <ion-card-content>
+      Access your favorites workouts most easily
+    </ion-card-content>
+  </ion-card>
+
   <p>
     <button ion-button color="primary" (click)="speech($event)">Speech</button>
     <span>{{error_msg}}</span>
