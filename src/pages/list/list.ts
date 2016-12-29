@@ -32,9 +32,9 @@ export class ListPage {
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(ItemDetailsPage, {
-      item: item
-    });
+    console.log('itemTapped', item);
+    let modal = this.modalCtrl.create(ItemDetailsPage, {item: item});
+    modal.present();
   }
 
   openModal(characterNum) {

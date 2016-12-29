@@ -10,30 +10,26 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-card>
-        <img src="assets/img/squat1.jpg"/>
-        <ion-card-content>          
-          <ion-grid>
-            <ion-row>
-              <ion-col width-80>
-                <ion-card-title>
-                  {{item.title}}
-                </ion-card-title>
-                <p>
-                  {{item.note}}
-                </p>
-              </ion-col>
-              <ion-col width-20 text-center>
-              <ion-icon name="timer"></ion-icon>
-              00:00
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-    </button>
-  </ion-list>
+<ion-content class="cards-bg social-cards">
+  <ion-card *ngFor="let item of items" (click)="itemTapped($event, item)">
+    <img src="assets/img/squat1.jpg"/>
+    <ion-card-content>          
+      <ion-grid>
+        <ion-row>
+          <ion-col width-80>
+            <ion-card-title>
+              {{item.title}}
+            </ion-card-title>
+            <p>
+              {{item.note}}
+            </p>
+          </ion-col>
+          <ion-col width-20 text-center>
+          <ion-icon name="timer"></ion-icon>
+          00:00
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
