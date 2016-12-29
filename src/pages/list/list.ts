@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams } from 'ionic-angular';
-
+import { NavController, ModalController, NavParams } from 'ionic-angular';
 import { ItemDetailsPage } from '../item-details/item-details';
+import { NewWorkout } from '../item-details/new';
 
 
 @Component({
@@ -14,7 +14,7 @@ export class ListPage {
   icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
 
@@ -35,5 +35,11 @@ export class ListPage {
     this.navCtrl.push(ItemDetailsPage, {
       item: item
     });
+  }
+
+  openModal(characterNum) {
+    console.log('openModal', characterNum);
+    let modal = this.modalCtrl.create(NewWorkout, characterNum);
+    modal.present();
   }
 }
