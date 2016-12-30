@@ -1,0 +1,29 @@
+<ion-card-header>
+  Step type
+</ion-card-header>
+
+<ion-card-content>
+  <ion-list radio-group>
+    <ion-item>
+      <ion-label>Exercise</ion-label>
+      <ion-radio checked="true" value="ex"></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Rest</ion-label>
+      <ion-radio value="re"></ion-radio>
+    </ion-item>
+  </ion-list>
+
+  <ion-item>
+    <ion-label stacked>Name</ion-label>
+    <ion-input type="text" [(ngModel)]="step.name"></ion-input>
+  </ion-item>
+
+
+  <ion-item>
+    <ion-label stacked>Time (mins:secs)</ion-label>
+    <ion-datetime displayFormat="mm:ss" pickerFormat="mm ss"></ion-datetime>
+  </ion-item>
+
+</ion-card-content>

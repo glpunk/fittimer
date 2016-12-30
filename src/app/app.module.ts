@@ -10,6 +10,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { NewWorkout } from '../pages/item-details/new';
 
 import { WorkoutDetailComponent } from './workout/detail.component';
+import { StepDetailComponent } from './step/detail.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { WorkoutDetailComponent } from './workout/detail.component';
     HomePage,
     TabsPage,
     NewWorkout,
-    WorkoutDetailComponent
+    WorkoutDetailComponent,
+    StepDetailComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)

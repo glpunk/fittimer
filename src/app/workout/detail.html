@@ -1,0 +1,32 @@
+<ion-list>
+  <ion-list-header>
+    Workout Information
+  </ion-list-header>
+
+  <ion-item>
+    <ion-input type="text" placeholder="Name" [(ngModel)]="workout.name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input type="text" placeholder="Description" [(ngModel)]="workout.description"></ion-input>
+  </ion-item>
+</ion-list>
+
+<ion-list>
+  <ion-list-header>
+    Steps
+  </ion-list-header>
+
+  <ion-card *ngFor="let step of workout.steps">
+    <my-step-detail [step]="step"></my-step-detail>
+  </ion-card>
+
+</ion-list>
+
+<div padding>
+  <button ion-button full color="secondary">Add step</button>
+</div>
+
+<div padding>
+  <button ion-button color="primary" block (click)="save()">Save</button>
+</div>

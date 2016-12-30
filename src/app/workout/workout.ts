@@ -1,4 +1,4 @@
-import { Step } from '../step/Step'
+import { Step } from '../step/step'
 
 export class Workout {
   id: Number;
@@ -9,5 +9,5 @@ export class Workout {
   createdAt: Date;
   updatedAt: Date;
   lastRun: Date;
-  steps: Array<Step>;
+  steps: Array<any>;
 }
