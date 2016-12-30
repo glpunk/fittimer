@@ -37,4 +37,26 @@
     </ion-range>
   </ion-item>
 
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small center text-center>
+        <ion-icon name="arrow-up"></ion-icon>
+        <div>up</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small center text-center>
+        <ion-icon name="arrow-down"></ion-icon>
+        <div>down</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button (click)="remove(this)" ion-button icon-left clear small center text-center>
+        <ion-icon name="trash"></ion-icon>
+        <div>remove</div>
+      </button>
+    </ion-col>
+  </ion-row>
+
 </ion-card-content>

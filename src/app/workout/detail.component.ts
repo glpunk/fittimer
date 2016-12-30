@@ -26,6 +26,10 @@ export class WorkoutDetailComponent {
     this.workout.steps.push(step);
   }
 
+  removeStep() {
+    
+  }
+
   save() {
     console.log('save WorkoutDetailComponent', this.workout);
 

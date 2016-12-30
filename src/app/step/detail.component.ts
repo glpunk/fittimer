@@ -19,4 +19,8 @@ export class StepDetailComponent {
 
   	return min + ':' + sec;
   }
+
+  remove(item) {
+  	console.log('remove', item);
+  }
 }
