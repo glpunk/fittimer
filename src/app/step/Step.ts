@@ -1,8 +1,8 @@
 export class Step {
   id: Number;
   name: String;
-  type: String;
-  time: Date;
+  stepType: String;
+  time: Number;
   color: String;
   order: Number;
   createdAt: Date;

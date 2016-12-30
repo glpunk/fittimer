@@ -4,10 +4,12 @@
   </ion-list-header>
 
   <ion-item>
+    <ion-label fixed>Name:</ion-label>
     <ion-input type="text" placeholder="Name" [(ngModel)]="workout.name"></ion-input>
   </ion-item>
 
   <ion-item>
+    <ion-label fixed>Description:</ion-label>
     <ion-input type="text" placeholder="Description" [(ngModel)]="workout.description"></ion-input>
   </ion-item>
 </ion-list>
@@ -24,7 +26,7 @@
 </ion-list>
 
 <div padding>
-  <button ion-button full color="secondary">Add step</button>
+  <button ion-button full color="secondary" (click)="addStep()">Add step</button>
 </div>
 
 <div padding>

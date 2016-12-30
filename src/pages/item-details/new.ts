@@ -28,6 +28,8 @@ export class NewWorkout {
 
     let step = new Step();
     step.name = 'get ready';
+    step.stepType = 'rest';
+    //step.time = 10;
 
     this.selectedWorkout.steps.push(step);
     console.log(this.selectedWorkout);

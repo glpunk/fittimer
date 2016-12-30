@@ -16,6 +16,14 @@ export class WorkoutDetailComponent {
   constructor (public db: DbStorage){
   }
 
+  addStep() {
+    let step = new Step();
+    step.name = '';
+    step.stepType = 'exercise';
+
+    this.workout.steps.push(step);
+  }
+
   save() {
     console.log('save WorkoutDetailComponent', this.workout);
 
