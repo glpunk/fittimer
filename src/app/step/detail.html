@@ -4,24 +4,37 @@
     <ion-input placeholder="Name" type="text" [(ngModel)]="step.name"></ion-input>
   </ion-item>
 
-  <ion-list radio-group>
-    <ion-card-header>
-      Step type:
-    </ion-card-header>
-    
-    <ion-item>
-      <ion-label>Exercise</ion-label>
-      <ion-radio [checked]="step.stepType=='exercise'" value="exercise"></ion-radio>
-    </ion-item>
-
-    <ion-item>
-      <ion-label>Rest</ion-label>
-      <ion-radio [checked]="step.stepType=='rest'" value="rest"></ion-radio>
-    </ion-item>
-  </ion-list>
+  <ion-item>
+    <ion-label fixed>Step type:</ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-segment [(ngModel)]="step.stepType">
+      <ion-segment-button value="exercise">
+        exercise
+      </ion-segment-button>
+      <ion-segment-button value="rest">
+        rest
+      </ion-segment-button>
+    </ion-segment>
+  </ion-item>
 
   <ion-item>
-    <ion-label fixed>Time:</ion-label>
-    <ion-datetime placeholder="mm:ss" [(ngModel)]="step.time" displayFormat="mm:ss" pickerFormat="mm \m\i\n ss \s\e\c"></ion-datetime>
+    <ion-label class="label label-ios">
+      Time:  
+    </ion-label>
+     <ion-badge item-right>{{formatDate()}}</ion-badge>
   </ion-item>
+
+  <ion-item>
+    <ion-range min="0" max="59" [(ngModel)]="step.minutes">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>59</ion-label>
+    </ion-range>
+  
+    <ion-range min="0" max="59" [(ngModel)]="step.seconds">
+      <ion-label range-left>0</ion-label>
+      <ion-label range-right>59</ion-label>
+    </ion-range>
+  </ion-item>
+
 </ion-card-content>

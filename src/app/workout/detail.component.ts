@@ -20,6 +20,8 @@ export class WorkoutDetailComponent {
     let step = new Step();
     step.name = '';
     step.stepType = 'exercise';
+    step.minutes = 0;
+    step.seconds = 0;
 
     this.workout.steps.push(step);
   }
