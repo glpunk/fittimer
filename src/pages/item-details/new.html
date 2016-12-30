@@ -14,19 +14,68 @@
 <ion-content>
 
   <ion-list>
+    <ion-list-header>
+      Workout Information
+    </ion-list-header>
 
     <ion-item>
-      <ion-input type="text" placeholder="Name" #workoutName></ion-input>
+      <ion-input type="text" placeholder="Name" [(ngModel)]="workout.name"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-input type="text" placeholder="Description"  #workoutDesc></ion-input>
+      <ion-input type="text" placeholder="Description" [(ngModel)]="workout.description"></ion-input>
     </ion-item>
 
   </ion-list>
 
+  <ion-list>
+    <ion-list-header>
+      Steps
+    </ion-list-header>
+
+    <ion-card>
+      <ion-card-header>
+        Step type
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list radio-group>
+          <ion-item>
+            <ion-label>Exercise</ion-label>
+            <ion-radio checked="true" value="ex"></ion-radio>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Rest</ion-label>
+            <ion-radio value="re"></ion-radio>
+          </ion-item>
+        </ion-list>
+
+        <ion-item>
+          <ion-label stacked>Name</ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+
+
+        <ion-item>
+          <ion-label stacked>Time (mins:secs)</ion-label>
+          <ion-datetime displayFormat="mm:ss" pickerFormat="mm ss"></ion-datetime>
+        </ion-item>
+
+      </ion-card-content>
+
+    </ion-card>
+
+    <div padding>
+      <button ion-button full color="secondary">Add step</button>
+    </div>
+  </ion-list>
+
+
   <div padding>
-    <button ion-button color="primary" block (click)="save({name: workoutName.value, description: workoutDesc.value})">Save</button>
+    <button ion-button color="primary" block (click)="save()">Save</button>
   </div>
+
+
 
 </ion-content>
