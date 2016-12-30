@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
-import { Workout } from '../../app/Workout'
+import { Workout } from '../../app/workout/workout';
 
 import { DbStorage } from '../../services/DbStorage'
 
@@ -10,18 +10,7 @@ import { DbStorage } from '../../services/DbStorage'
   templateUrl: 'new.html'
 })
 export class NewWorkout {
-  character;
-  workout: Workout = {  
-    id: 0,
-    name: '',
-    description: '',
-    favorite: false,
-    img: '',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    lastRun: new Date(),
-    steps: []
-  };
+  selectedWorkout = new Workout();
 
   constructor(
     public params: NavParams,
@@ -33,21 +22,5 @@ export class NewWorkout {
   dismiss() {
     this.viewCtrl.dismiss();
   }
-
-  save() {
-    console.log('save new', this.workout);
-
-    //TODO validations
-
-    /*
-    this.db.createWorkout(obj).then((data) => {
-      if(data.rowsAffected == 1){
-        console.log('saved');
-      }
-      
-    }, (error) => {
-      console.log('list data error', error);
-    });
-    */
-  }
+  
 }

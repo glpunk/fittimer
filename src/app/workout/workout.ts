@@ -1,4 +1,4 @@
-import { Step } from './Step'
+import { Step } from '../step/Step'
 
 export class Workout {
   id: Number;
