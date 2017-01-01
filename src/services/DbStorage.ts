@@ -24,6 +24,7 @@ export class DbStorage{
     let tables = [];
     tables.push("CREATE TABLE IF NOT EXISTS workouts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, favorite BOOLEAN, img TEXT, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
     tables.push("CREATE TABLE IF NOT EXISTS steps (id INTEGER PRIMARY KEY AUTOINCREMENT, id_workout INTEGER, name TEXT, type TEXT, minutes INTEGER, seconds INTEGER, color INTEGER, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
+    tables.push("CREATE INDEX workout_index ON steps (id_workout);");
 
     for(let i in tables){
       this.db.executeSql(tables[i], {}).then((data) => {
