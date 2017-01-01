@@ -26,8 +26,25 @@ export class WorkoutDetailComponent {
     this.workout.steps.push(step);
   }
 
-  removeStep() {
-    
+  stepUp(index) {
+    let i1 = this.workout.steps[index];
+    let i2 = this.workout.steps[index-1];
+
+    this.workout.steps[index-1] = i1;
+    this.workout.steps[index] = i2;
+  }
+
+  stepDown(index) {
+    let i1 = this.workout.steps[index];
+    let i2 = this.workout.steps[index+1];
+
+    this.workout.steps[index+1] = i1;
+    this.workout.steps[index] = i2;
+  }
+
+
+  removeStep(index) {
+    this.workout.steps.splice(index,1);
   }
 
   save() {

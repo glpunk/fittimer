@@ -1,4 +1,3 @@
-<ion-card-content>
   <ion-item>
     <ion-label fixed>Name:</ion-label>
     <ion-input placeholder="Name" type="text" [(ngModel)]="step.name"></ion-input>
@@ -36,27 +35,3 @@
       <ion-label range-right>59</ion-label>
     </ion-range>
   </ion-item>
-
-
-  <ion-row>
-    <ion-col>
-      <button ion-button icon-left clear small center text-center>
-        <ion-icon name="arrow-up"></ion-icon>
-        <div>up</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button ion-button icon-left clear small center text-center>
-        <ion-icon name="arrow-down"></ion-icon>
-        <div>down</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button (click)="remove(this)" ion-button icon-left clear small center text-center>
-        <ion-icon name="trash"></ion-icon>
-        <div>remove</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
-</ion-card-content>
