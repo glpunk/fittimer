@@ -3,10 +3,10 @@ import { Component, Input } from '@angular/core';
 import { Step } from './step';
 
 @Component({
-  selector: 'my-step-detail',
-  templateUrl: 'detail.html'
+  selector: 'step-form',
+  templateUrl: 'form.html'
 })
-export class StepDetailComponent {
+export class StepFormComponent {
   @Input()
   step: Step;
 

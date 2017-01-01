@@ -21,7 +21,7 @@
 
   <ion-card *ngFor="let step of workout.steps; let i = index">
     <ion-card-content>
-      <my-step-detail [step]="step"></my-step-detail>
+      <step-form [step]="step"></step-form>
         <ion-row>
           <ion-col>
             <button (click)="stepUp(i)" [disabled]="i == 0" ion-button icon-left clear small center text-center>

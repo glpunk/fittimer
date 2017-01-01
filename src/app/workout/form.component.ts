@@ -6,10 +6,10 @@ import { Step } from '../step/step';
 import { DbStorage } from '../../services/DbStorage'
 
 @Component({
-  selector: 'my-workout-detail',
-  templateUrl: 'detail.html'
+  selector: 'workout-form',
+  templateUrl: 'form.html'
 })
-export class WorkoutDetailComponent {
+export class WorkoutFormComponent {
   @Input()
   workout: Workout;
 
@@ -42,17 +42,15 @@ export class WorkoutDetailComponent {
     this.workout.steps[index] = i2;
   }
 
-
   removeStep(index) {
     this.workout.steps.splice(index,1);
   }
 
   save() {
-    console.log('save WorkoutDetailComponent', this.workout);
+    console.log('save WorkoutFormComponent', this.workout);
 
     //TODO validations
 
-    
     this.db.createWorkout(this.workout).then((data) => {
       if(data.rowsAffected == 1){
         console.log('saved');
@@ -60,7 +58,6 @@ export class WorkoutDetailComponent {
       
     }, (error) => {
       console.log('list data error', error);
-    });
-    
+    });   
   }
 }
