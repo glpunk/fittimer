@@ -52,8 +52,8 @@ export class WorkoutDetailComponent {
 
     //TODO validations
 
-    /*
-    this.db.createWorkout(obj).then((data) => {
+    
+    this.db.createWorkout(this.workout).then((data) => {
       if(data.rowsAffected == 1){
         console.log('saved');
       }
@@ -61,6 +61,6 @@ export class WorkoutDetailComponent {
     }, (error) => {
       console.log('list data error', error);
     });
-    */
+    
   }
 }
