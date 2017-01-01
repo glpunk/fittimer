@@ -12,5 +12,15 @@
 <ion-content>
   <h3 text-center *ngIf="selectedItem">
     {{selectedItem.name}}
+    <ion-badge item-center>{{totalTime()}}</ion-badge>
+    <ion-icon name="play" (click)="play()"></ion-icon> 
   </h3>
+
+
+  <ion-list>
+    <ion-item ion-item *ngFor="let step of steps">
+      {{ step.name }} {{ step.minutes }}:{{ step.seconds }}
+    </ion-item>  
+  </ion-list>
+
 </ion-content>

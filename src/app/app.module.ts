@@ -3,11 +3,11 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { DbStorage} from '../services/DbStorage'
 
 import { MyApp } from './app.component';
-import { ItemDetailsPage } from '../pages/item-details/item-details';
+import { WorkoutDetailPage } from '../pages/workouts/detail';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
+import { ListPage } from '../pages/workouts/list';
 import { TabsPage } from '../pages/tabs/tabs';
-import { NewWorkout } from '../pages/item-details/new';
+import { NewWorkout } from '../pages/workouts/new';
 
 import { WorkoutFormComponent } from './workout/form.component';
 import { StepFormComponent } from './step/form.component';
@@ -15,7 +15,7 @@ import { StepFormComponent } from './step/form.component';
 @NgModule({
   declarations: [
     MyApp,
-    ItemDetailsPage,
+    WorkoutDetailPage,
     ListPage,
     HomePage,
     TabsPage,
@@ -29,7 +29,7 @@ import { StepFormComponent } from './step/form.component';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    ItemDetailsPage,
+    WorkoutDetailPage,
     ListPage,
     HomePage,
     TabsPage,

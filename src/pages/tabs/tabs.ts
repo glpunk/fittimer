@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 import { HomePage } from '../home/home';
-import { ListPage } from '../list/list';
+import { ListPage } from '../workouts/list';
 
 @Component({
   templateUrl: 'tabs.html'

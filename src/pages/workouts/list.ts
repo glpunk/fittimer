@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
 import { NavController, ModalController, NavParams } from 'ionic-angular';
-import { ItemDetailsPage } from '../item-details/item-details';
-import { NewWorkout } from '../item-details/new';
+import { WorkoutDetailPage } from '../workouts/detail';
+import { NewWorkout } from '../workouts/new';
 
 import { DbStorage } from '../../services/DbStorage'
 
@@ -13,7 +13,7 @@ import { DbStorage } from '../../services/DbStorage'
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{name: string, description: string}>;
+  items: Array<{id: number, name: string, description: string}>;
 
   constructor(
     public navCtrl: NavController, 
@@ -33,7 +33,7 @@ export class ListPage {
     this.db.getWorkouts().then((data) => {
       if(data.rows.length > 0) {
         for(var i = 0; i < data.rows.length; i++) {
-            this.items.push({name: data.rows.item(i).name, description: data.rows.item(i).description});
+            this.items.push({id: data.rows.item(i).id, name: data.rows.item(i).name, description: data.rows.item(i).description});
         }
       }
     }, (error) => {
@@ -43,7 +43,7 @@ export class ListPage {
 
   itemTapped(event, item) {
     console.log('itemTapped', item);
-    let modal = this.modalCtrl.create(ItemDetailsPage, {item: item});
+    let modal = this.modalCtrl.create(WorkoutDetailPage, {item: item});
     modal.present();
   }
 

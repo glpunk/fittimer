@@ -10,7 +10,7 @@ export class DbStorage{
 
   openDb() {
     this.db.openDatabase({
-      name: 'data.db',
+      name: 'data2.db',
       location: 'default' // the location field is required
     }).then(() => {
       console.log('database opened');
@@ -23,7 +23,7 @@ export class DbStorage{
   createTables(){
     let tables = [];
     tables.push("CREATE TABLE IF NOT EXISTS workouts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, favorite BOOLEAN, img TEXT, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
-    tables.push("CREATE TABLE IF NOT EXISTS steps (id INTEGER PRIMARY KEY AUTOINCREMENT, id_workout INTEGER, name TEXT, type TEXT, minutes INTEGER, seconds INTEGER, color INTEGER, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
+    tables.push("CREATE TABLE IF NOT EXISTS steps (id INTEGER PRIMARY KEY AUTOINCREMENT, id_workout INTEGER, name TEXT, type TEXT, minutes INTEGER, seconds INTEGER, color INTEGER, position INTEGER, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
     tables.push("CREATE INDEX workout_index ON steps (id_workout);");
 
     for(let i in tables){
@@ -43,6 +43,14 @@ export class DbStorage{
                .catch(this.handleError);
   }
 
+  getSteps(id): Promise<any> {
+    console.log('getSteps', id);
+    
+    return this.db.executeSql("SELECT * FROM steps WHERE id_workout = ? order by position ASC", [id])
+               .then(response => response)
+               .catch(this.handleError);
+  }
+
   createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
 
@@ -54,8 +62,10 @@ export class DbStorage{
 
               console.log('saving steps -----');
 
+              let i = 0;
               for(let step of obj.steps){
-                let res = this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, '']);
+                let res = this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, position, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i]);
+                i++;
                 console.log(res);
               }
               return response;
