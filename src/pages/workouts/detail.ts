@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import {TextToSpeech} from 'ionic-native';
 
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { DbStorage } from '../../services/DbStorage'
+
+import { Speaker } from '../../services/Speaker'
 
 @Component({
   selector: 'workout-detail',
@@ -14,7 +15,7 @@ export class WorkoutDetailPage {
   steps: Array<any>;
   totalSeconds: number;
   currentStep: number;
-  speeches: Array<string>;
+  speaker;
 
   constructor(
     public navCtrl: NavController, 
@@ -26,7 +27,7 @@ export class WorkoutDetailPage {
     this.selectedItem = navParams.get('item');
     this.getSteps();
     this.currentStep = -1;
-    this.speeches = [];
+    this.speaker = new Speaker();
   }
 
   play() {
@@ -36,38 +37,13 @@ export class WorkoutDetailPage {
   nextStep() {
     this.currentStep++;
     let step = this.steps[this.currentStep];
-    this.speeches.push( step.name );
+    this.speaker.add( step.name );
 
-    console.log('type',step.stepType);
     if(step.stepType == 'rest'){
-      this.speeches.push('next step');
-      this.speeches.push(this.steps[this.currentStep+1].name);
+      this.speaker.add('next step');
+      this.speaker.add(this.steps[this.currentStep+1].name);
     }
-
-    this.speech();
     this.nextSecond();
-  }
-
-  speech (){
-    console.log('speech');
-    if(this.speeches.length > 0){
-      let scope = this; 
-      TextToSpeech.speak({
-            text: this.speeches[0],
-            locale: 'en-EN',
-            rate: 1.5
-        })
-        .then(() => {
-          scope.nextSpeech();
-        })
-        .catch((reason: any) => console.log(reason));    
-    }
-  }
-
-  nextSpeech() {
-    console.log('nextSpeech');
-    this.speeches.splice(0,1);
-    this.speech();
   }
 
   nextSecond() {
