@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
+import { NativeAudio } from 'ionic-native';
+
 import { DbStorage } from '../../services/DbStorage'
 
 import { Speaker } from '../../services/Speaker'
@@ -22,12 +24,16 @@ export class WorkoutDetailPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     public db: DbStorage
+
     ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
     this.getSteps();
     this.currentStep = -1;
     this.speaker = new Speaker();
+
+    NativeAudio.preloadComplex('beep', 'assets/sounds/pow_backpack.wav',1,1,0);
+    NativeAudio.preloadComplex('whistle', 'assets/sounds/Whistle.wav',1,1,0);
   }
 
   play() {
@@ -48,11 +54,33 @@ export class WorkoutDetailPage {
 
   nextSecond() {
     console.log('nextSecond', this.totalSeconds);
+    let s = this.steps[this.currentStep];
+
+    if(s.seconds == 0){
+      this.nextStep();
+      return;
+    }
+
     this.totalSeconds--;
+    s.seconds--;
+    
+    this.playSounds(s.seconds);
+
     let scope = this;
     setTimeout(function(){
       scope.nextSecond();
     }, 1000);
+  }
+
+  playSounds(sec) {
+
+    if(sec <= 3 && sec > 0){
+      NativeAudio.play('beep');
+    }
+
+    if(sec == 0){
+      NativeAudio.play('whistle');
+    }
   }
 
   getSteps() {
@@ -63,16 +91,16 @@ export class WorkoutDetailPage {
         this.totalSeconds = 0;
         for(var i = 0; i < data.rows.length; i++) {
           let item = data.rows.item(i);
-          console.log(item);
+
+          let stepSeconds = (item.minutes * 60) + (item.seconds);
+
           this.steps.push({
             name: item.name, 
-            minutes: item.minutes,
-            seconds: item.seconds,
+            seconds: stepSeconds,
             stepType: item.type
           });
 
-          this.totalSeconds += (item.minutes * 60);
-          this.totalSeconds += (item.seconds);
+          this.totalSeconds += stepSeconds;
         }
       }
     }, (error) => {
@@ -80,16 +108,19 @@ export class WorkoutDetailPage {
     });
   }
 
-  totalTime() {
-    let time = this.totalSeconds;
+  stepTime(step) {
+    return step.minutes + ':' + step.seconds;
+  }
+
+  formatTime(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time - minutes * 60;
 
     let minstr = minutes.toString();
     let secstr = seconds.toString();
 
-    if(minutes < 10) minstr += '0' + minstr;
-    if(seconds < 10) secstr += '0' + secstr;
+    if(minutes < 10) minstr = '0' + minstr;
+    if(seconds < 10) secstr = '0' + secstr;
 
     return minstr + ':' + secstr;
   }
