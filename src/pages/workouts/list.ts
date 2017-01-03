@@ -50,6 +50,10 @@ export class ListPage {
   openModal(characterNum) {
     console.log('openModal', characterNum);
     let modal = this.modalCtrl.create(NewWorkout, characterNum);
+    modal.onDidDismiss(data => {
+     console.log('onDidDismiss');
+     this.refresh();
+   });
     modal.present();
   }
 }

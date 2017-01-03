@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams } from 'ionic-angular';
+import { ViewController, NavParams, ToastController } from 'ionic-angular';
 
 import { Workout } from '../../app/workout/workout';
 import { Step } from '../../app/step/step';
+
+import { DbStorage } from '../../services/DbStorage';
 
 @Component({
   selector: 'new-workout',
@@ -23,7 +25,9 @@ export class NewWorkout {
 
   constructor(
     public params: NavParams,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public toastCtrl: ToastController,
+    public db: DbStorage
   ) {
 
     let step = new Step();
@@ -37,7 +41,34 @@ export class NewWorkout {
 
   }
 
+  presentToast(str) {
+    let toast = this.toastCtrl.create({
+      message: str,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
+  }
+
   dismiss() {
     this.viewCtrl.dismiss();
   }
+
+  save() {
+    console.log('save WorkoutFormComponent', this.selectedWorkout);
+    //TODO validations
+
+    this.db.createWorkout(this.selectedWorkout).then((data) => {
+      if(data.rowsAffected == 1){
+        console.log('saved');
+        this.presentToast('Workout saved!');
+        this.dismiss();
+      }
+      
+    }, (error) => {
+      console.log('list data error', error);
+    });   
+  }
+
+
 }
