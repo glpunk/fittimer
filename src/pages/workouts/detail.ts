@@ -18,6 +18,7 @@ export class WorkoutDetailPage {
   totalSeconds: number;
   currentStep: number;
   speaker;
+  playing;
 
   constructor(
     public navCtrl: NavController, 
@@ -32,20 +33,36 @@ export class WorkoutDetailPage {
     this.currentStep = -1;
     this.speaker = new Speaker();
 
+    this.playing = false; 
+
     NativeAudio.preloadComplex('beep', 'assets/sounds/pow_backpack.wav',1,1,0);
     NativeAudio.preloadComplex('whistle', 'assets/sounds/Whistle.wav',1,1,0);
   }
 
   play() {
-    this.nextStep();
+    this.playing = true;
+    this.nextSecond();
+  }
+  
+  pause() {
+    this.playing = !this.playing;
+    this.nextSecond();
   }
 
   nextStep() {
     this.currentStep++;
+
+    if(this.currentStep == this.steps.length){
+      this.speaker.add('workout complete');
+      this.playing = false;
+      this.currentStep = -1;
+      return;
+    }
+
     let step = this.steps[this.currentStep];
     this.speaker.add( step.name );
 
-    if(step.stepType == 'rest'){
+    if(step.stepType == 'rest' && (this.currentStep+1) < this.steps.length){
       this.speaker.add('next step');
       this.speaker.add(this.steps[this.currentStep+1].name);
     }
@@ -56,7 +73,7 @@ export class WorkoutDetailPage {
     console.log('nextSecond', this.totalSeconds);
     let s = this.steps[this.currentStep];
 
-    if(s.seconds == 0){
+    if(this.currentStep == -1 || s.seconds == 0){
       this.nextStep();
       return;
     }
@@ -67,8 +84,11 @@ export class WorkoutDetailPage {
     this.playSounds(s.seconds);
 
     let scope = this;
+    
     setTimeout(function(){
-      scope.nextSecond();
+      if(scope.playing){
+        scope.nextSecond();
+      }
     }, 1000);
   }
 
@@ -126,6 +146,7 @@ export class WorkoutDetailPage {
   }
 
   dismiss() {
+    this.playing = false;
     this.viewCtrl.dismiss();
   }
 }

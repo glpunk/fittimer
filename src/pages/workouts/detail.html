@@ -5,21 +5,29 @@
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Item Details</ion-title>
+    <ion-title>Workout detail</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <h3 text-center *ngIf="selectedItem">
+  <h2 text-center *ngIf="selectedItem">
     {{selectedItem.name}}
+  </h2>
+  <h3 text-center *ngIf="selectedItem">
     <ion-badge item-center>{{formatTime(totalSeconds)}}</ion-badge>
-    <ion-icon name="play" (click)="play()"></ion-icon> 
   </h3>
-
-
+  <h3 text-center>
+    <button ion-button icon-only (click)="play()" [hidden]="playing == true">
+      <ion-icon name="play"></ion-icon>
+    </button>
+    <button ion-button icon-only (click)="pause()" [hidden]="playing == false">
+      <ion-icon name="pause"></ion-icon>
+    </button>
+  </h3>
+  
   <ion-list>
-    <ion-item ion-item *ngFor="let step of steps">
-      {{ step.name }} {{ formatTime(step.seconds) }}
+    <ion-item ion-item *ngFor="let step of steps; let i = index">
+        <ion-icon name="arrow-round-forward" [hidden]="i != currentStep" item-left></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
     </ion-item>  
   </ion-list>
 
