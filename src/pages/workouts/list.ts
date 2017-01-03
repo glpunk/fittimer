@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { NavController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, ModalController, NavParams, ToastController } from 'ionic-angular';
 import { WorkoutDetailPage } from '../workouts/detail';
 import { NewWorkout } from '../workouts/new';
 
@@ -19,6 +19,7 @@ export class ListPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl: ModalController,
+    public toastCtrl: ToastController,
     public db: DbStorage
     ) {
 
@@ -44,16 +45,34 @@ export class ListPage {
   itemTapped(event, item) {
     console.log('itemTapped', item);
     let modal = this.modalCtrl.create(WorkoutDetailPage, {item: item});
+    modal.onDidDismiss(data => {
+      if(data.deleted == true){
+        this.refresh();
+        this.presentToast('Workout deleted!'); 
+      }
+      
+    });
     modal.present();
+  }
+
+  presentToast(str) {
+    let toast = this.toastCtrl.create({
+      message: str,
+      duration: 3000,
+      position: 'top'
+    });
+    toast.present();
   }
 
   openModal(characterNum) {
     console.log('openModal', characterNum);
     let modal = this.modalCtrl.create(NewWorkout, characterNum);
     modal.onDidDismiss(data => {
-     console.log('onDidDismiss');
-     this.refresh();
-   });
+      if(data.saved == true){
+        this.refresh();
+        this.presentToast('Workout saved!'); 
+      }
+    });
     modal.present();
   }
 }

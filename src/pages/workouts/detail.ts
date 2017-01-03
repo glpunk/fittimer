@@ -53,7 +53,8 @@ export class WorkoutDetailPage {
     this.currentStep++;
 
     if(this.currentStep == this.steps.length){
-      this.speaker.add('workout complete');
+      this.speaker.add('workout completed');
+      this.getSteps();
       this.playing = false;
       this.currentStep = -1;
       return;
@@ -147,6 +148,17 @@ export class WorkoutDetailPage {
 
   dismiss() {
     this.playing = false;
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({'deleted':false});
+  }
+
+  delete() {
+    this.db.deleteWorkout(this.selectedItem.id).then((data) => {
+      console.log(data);
+      if(data.rowsAffected == 1) {
+        this.viewCtrl.dismiss({'deleted':true});
+      }
+    }, (error) => {
+      console.log('deleteWorkout error', error);
+    }); 
   }
 }

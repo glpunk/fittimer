@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-buttons end>
-      <button ion-button (click)="dismiss()">
+      <button ion-button icon-only (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
@@ -30,5 +30,7 @@
         <ion-icon name="arrow-round-forward" [hidden]="i != currentStep" item-left></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
     </ion-item>  
   </ion-list>
+
+  <button ion-button block color="danger" (click)="delete()">Delete workout</button>
 
 </ion-content>

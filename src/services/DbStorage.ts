@@ -49,7 +49,7 @@ export class DbStorage{
     return this.db.executeSql("SELECT * FROM steps WHERE id_workout = ? order by position ASC", [id])
                .then(response => response)
                .catch(this.handleError);
-  }
+  }  
 
   createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
@@ -71,6 +71,16 @@ export class DbStorage{
               return response;
 
             }).catch(this.handleError);
+  }
+
+  deleteWorkout(id): Promise<any> {
+    console.log('deleteWorkout', id);
+    
+    this.db.executeSql("delete from steps WHERE id_workout = ?", [id]);
+
+    return this.db.executeSql("delete from workouts WHERE id = ?", [id])
+               .then(response => response)
+               .catch(this.handleError);
   }
 
   private handleError(error: any): Promise<any> {

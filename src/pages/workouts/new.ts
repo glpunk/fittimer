@@ -26,7 +26,6 @@ export class NewWorkout {
   constructor(
     public params: NavParams,
     public viewCtrl: ViewController,
-    public toastCtrl: ToastController,
     public db: DbStorage
   ) {
 
@@ -41,17 +40,8 @@ export class NewWorkout {
 
   }
 
-  presentToast(str) {
-    let toast = this.toastCtrl.create({
-      message: str,
-      duration: 3000,
-      position: 'top'
-    });
-    toast.present();
-  }
-
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({'saved':true});
   }
 
   save() {
@@ -61,7 +51,6 @@ export class NewWorkout {
     this.db.createWorkout(this.selectedWorkout).then((data) => {
       if(data.rowsAffected == 1){
         console.log('saved');
-        this.presentToast('Workout saved!');
         this.dismiss();
       }
       
