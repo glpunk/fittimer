@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 import { NativeAudio } from 'ionic-native';
 
-import { DbStorage } from '../../services/DbStorage'
+import { DbStorage } from '../../services/DbStorage';
 
-import { Speaker } from '../../services/Speaker'
+import { Speaker } from '../../services/Speaker';
+
+import { EditWorkout } from '../workouts/edit';
 
 @Component({
   selector: 'workout-detail',
@@ -24,6 +26,7 @@ export class WorkoutDetailPage {
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public viewCtrl: ViewController,
+    public modalCtrl: ModalController,
     public db: DbStorage
 
     ) {
@@ -131,6 +134,17 @@ export class WorkoutDetailPage {
 
   stepTime(step) {
     return step.minutes + ':' + step.seconds;
+  }
+
+  edit() {
+    let modal = this.modalCtrl.create(EditWorkout, {item: this.selectedItem});
+    /*modal.onDidDismiss(data => {
+      if(data.saved == true){
+        this.refresh();
+        this.presentToast('Workout saved!'); 
+      }
+    });*/
+    modal.present();
   }
 
   dismiss() {

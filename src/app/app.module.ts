@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/workouts/list';
 import { TabsPage } from '../pages/tabs/tabs';
 import { NewWorkout } from '../pages/workouts/new';
+import { EditWorkout } from '../pages/workouts/edit';
 
 import { WorkoutFormComponent } from './workout/form.component';
 import { StepFormComponent } from './step/form.component';
@@ -20,6 +21,7 @@ import { StepFormComponent } from './step/form.component';
     HomePage,
     TabsPage,
     NewWorkout,
+    EditWorkout,
     WorkoutFormComponent,
     StepFormComponent
   ],
@@ -33,7 +35,8 @@ import { StepFormComponent } from './step/form.component';
     ListPage,
     HomePage,
     TabsPage,
-    NewWorkout
+    NewWorkout,
+    EditWorkout
   ],
   providers: [DbStorage, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

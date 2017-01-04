@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ViewController, NavParams, ToastController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 import { Workout } from '../../app/workout/workout';
 import { Step } from '../../app/step/step';
@@ -58,6 +58,4 @@ export class NewWorkout {
       console.log('list data error', error);
     });   
   }
-
-
 }

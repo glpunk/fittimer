@@ -45,7 +45,9 @@ export class ListPage {
 
   itemTapped(event, item) {
     console.log('itemTapped', item);
-    let modal = this.modalCtrl.create(WorkoutDetailPage, {item: item});
+
+    this.navCtrl.push(WorkoutDetailPage, {item: item});
+    /*let modal = this.modalCtrl.create(WorkoutDetailPage, {item: item});
     modal.onDidDismiss(data => {
       if(data.deleted == true){
         this.refresh();
@@ -53,7 +55,7 @@ export class ListPage {
       }
       
     });
-    modal.present();
+    modal.present();*/
   }
 
   presentToast(str) {

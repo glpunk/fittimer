@@ -1,11 +1,11 @@
 <ion-header>
   <ion-navbar>
+    <ion-title>Workout detail</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="dismiss()">
         <ion-icon name="close"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Workout detail</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -31,6 +31,7 @@
     </ion-item>  
   </ion-list>
 
+  <button ion-button block color="default" (click)="edit()">Edit workout</button>
   <button ion-button block color="danger" (click)="delete()">Delete workout</button>
 
 </ion-content>
