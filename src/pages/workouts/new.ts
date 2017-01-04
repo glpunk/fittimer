@@ -40,8 +40,8 @@ export class NewWorkout {
 
   }
 
-  dismiss() {
-    this.viewCtrl.dismiss({'saved':true});
+  dismiss(val) {
+    this.viewCtrl.dismiss({'saved':val});
   }
 
   save() {
@@ -51,7 +51,7 @@ export class NewWorkout {
     this.db.createWorkout(this.selectedWorkout).then((data) => {
       if(data.rowsAffected == 1){
         console.log('saved');
-        this.dismiss();
+        this.dismiss(true);
       }
       
     }, (error) => {
