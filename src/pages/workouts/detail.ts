@@ -5,6 +5,7 @@ import { NavController, NavParams, ViewController, ModalController } from 'ionic
 import { NativeAudio } from 'ionic-native';
 
 import { DbStorage } from '../../services/DbStorage';
+import { Utils } from '../../services/Utils';
 
 import { Speaker } from '../../services/Speaker';
 
@@ -27,7 +28,8 @@ export class WorkoutDetailPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
-    public db: DbStorage
+    public db: DbStorage,
+    public utils: Utils
 
     ) {
     // If we navigated to this page, we will have an item available as a nav param
@@ -136,14 +138,19 @@ export class WorkoutDetailPage {
     return step.minutes + ':' + step.seconds;
   }
 
+  refresh(data) {
+    this.selectedItem = data.obj;
+    this.getSteps();
+  }
+
   edit() {
     let modal = this.modalCtrl.create(EditWorkout, {item: this.selectedItem});
-    /*modal.onDidDismiss(data => {
+    modal.onDidDismiss(data => {
       if(data.saved == true){
-        this.refresh();
-        this.presentToast('Workout saved!'); 
+        this.refresh(data);
+        this.utils.presentToast('Workout saved!'); 
       }
-    });*/
+    });
     modal.present();
   }
 
@@ -153,7 +160,7 @@ export class WorkoutDetailPage {
   }
 
   formatTime(str){
-    return this.db.formatTime(str);
+    return this.utils.formatTime(str);
   }
 
   delete() {

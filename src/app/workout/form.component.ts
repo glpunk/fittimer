@@ -16,6 +16,7 @@ export class WorkoutFormComponent {
 
   addStep() {
     let step = new Step();
+    step.id = 0;
     step.name = '';
     step.stepType = 'exercise';
     step.minutes = 0;

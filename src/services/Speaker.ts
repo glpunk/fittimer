@@ -21,8 +21,8 @@ export class Speaker{
       let scope = this; 
       TextToSpeech.speak({
             text: this.speeches[0],
-            locale: 'en-EN',
-            rate: 1.5
+            locale: 'es-MX',
+            rate: 1.4
         })
         .then(() => {
           scope.talking = false;

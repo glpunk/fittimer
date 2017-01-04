@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { DbStorage} from '../services/DbStorage'
+import { Utils} from '../services/Utils'
 
 import { MyApp } from './app.component';
 import { WorkoutDetailPage } from '../pages/workouts/detail';
@@ -38,6 +39,6 @@ import { StepFormComponent } from './step/form.component';
     NewWorkout,
     EditWorkout
   ],
-  providers: [DbStorage, {provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [Utils, DbStorage, {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}

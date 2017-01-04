@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content class='cards-bg'>
-  <workout-form [workout]="selectedWorkout"></workout-form>
+  <workout-form [workout]="objectToEdit"></workout-form>
 
   <div padding>
     <button ion-button color="primary" block (click)="save()">Save</button>

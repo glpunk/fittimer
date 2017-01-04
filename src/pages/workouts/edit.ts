@@ -11,7 +11,7 @@ import { DbStorage } from '../../services/DbStorage';
   templateUrl: 'edit.html'
 })
 export class EditWorkout {
-  selectedWorkout;
+  objectToEdit;
 
   constructor(
     public navParams: NavParams,
@@ -19,17 +19,14 @@ export class EditWorkout {
     public db: DbStorage
   ) {
 
-    this.selectedWorkout = navParams.get('item');
-
+    let copy = Object.assign({}, navParams.get('item'));
+    this.objectToEdit = copy;
     this.getSteps();
-
-    console.log('EditWorkout.constructor', this.selectedWorkout);
-
   }
 
   getSteps() {
-    this.db.getSteps(this.selectedWorkout.id).then((data) => {
-      this.selectedWorkout.steps = [];
+    this.db.getSteps(this.objectToEdit.id).then((data) => {
+      this.objectToEdit.steps = [];
 
       if(data.rows.length > 0) {
 
@@ -37,12 +34,13 @@ export class EditWorkout {
           let item = data.rows.item(i);
           let step = new Step();
 
+          step.id = item.id;
           step.name = item.name;
           step.stepType = item.type;
           step.minutes = item.minutes;
           step.seconds = item.seconds;
 
-          this.selectedWorkout.steps.push(step);
+          this.objectToEdit.steps.push(step);
         }
       }
     }, (error) => {
@@ -55,17 +53,19 @@ export class EditWorkout {
   }
 
   save() {
-    console.log('save WorkoutFormComponent', this.selectedWorkout);
-    //TODO validations
+    console.log('save WorkoutFormComponent', this.objectToEdit);
+    
+    let main = this.navParams.get('item');
+    main = this.objectToEdit;
 
-    this.db.createWorkout(this.selectedWorkout).then((data) => {
+    this.db.editWorkout(this.objectToEdit).then((data) => {
       if(data.rowsAffected == 1){
         console.log('saved');
-        this.dismiss(true);
+        //this.selectedItem = this.objectToEdit;
+        this.viewCtrl.dismiss({'saved':true, 'obj':this.objectToEdit});
       }
-      
     }, (error) => {
       console.log('list data error', error);
-    });   
+    });
   }
 }

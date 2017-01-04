@@ -64,7 +64,44 @@ export class DbStorage{
 
               let i = 0;
               for(let step of obj.steps){
-                let res = this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, position, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i]);
+                let res = this.createStep(step, w_id, i);
+                i++;
+                console.log(res);
+              }
+              return response;
+
+            }).catch(this.handleError);
+  }
+
+  private createStep(step, w_id, i){
+    console.log('createStep', step);
+    return this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, position, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i]);
+  }
+
+  private updateStep(step, w_id, i){
+    console.log('updateStep', step);
+    return this.db.executeSql("UPDATE steps SET id_workout = ?, name = ?, type = ?, minutes = ?, seconds = ?, color = ?, position = ?, updatedAt = date('now') WHERE id = ?", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i, step.id]);
+  }
+
+  editWorkout(obj): Promise<any> {
+    console.log('DbStorage.editWorkout', obj);
+
+    return this.db.executeSql("UPDATE workouts SET name = ?, description = ?, favorite = ?,  img = ?,  updatedAt = date('now') WHERE id = ?", [obj.name, obj.description, 0, '', obj.id])
+            .then( (response) => {
+              console.log(response);
+
+             let w_id = obj.id;
+
+              console.log('saving steps -----');
+
+              let i = 0;
+              let res = null;
+              for(let step of obj.steps){
+                if( step.id == 0){
+                  res = this.createStep(step, w_id, i);
+                } else {
+                  res = this.updateStep(step, w_id, i);
+                }
                 i++;
                 console.log(res);
               }
@@ -81,19 +118,6 @@ export class DbStorage{
     return this.db.executeSql("delete from workouts WHERE id = ?", [id])
                .then(response => response)
                .catch(this.handleError);
-  }
-
-  formatTime(time) {
-    let minutes = Math.floor(time / 60);
-    let seconds = time - minutes * 60;
-
-    let minstr = minutes.toString();
-    let secstr = seconds.toString();
-
-    if(minutes < 10) minstr = '0' + minstr;
-    if(seconds < 10) secstr = '0' + secstr;
-
-    return minstr + ':' + secstr;
   }
 
   private handleError(error: any): Promise<any> {
