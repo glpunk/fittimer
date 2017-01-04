@@ -54,14 +54,18 @@ export class WorkoutDetailPage {
     this.nextSecond();
   }
 
+  reset() {
+    this.getSteps();
+    this.playing = false;
+    this.currentStep = -1;
+  }
+
   nextStep() {
     this.currentStep++;
 
     if(this.currentStep == this.steps.length){
       this.speaker.add('workout completed');
-      this.getSteps();
-      this.playing = false;
-      this.currentStep = -1;
+      this.reset();
       return;
     }
 
