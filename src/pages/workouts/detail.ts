@@ -133,22 +133,13 @@ export class WorkoutDetailPage {
     return step.minutes + ':' + step.seconds;
   }
 
-  formatTime(time) {
-    let minutes = Math.floor(time / 60);
-    let seconds = time - minutes * 60;
-
-    let minstr = minutes.toString();
-    let secstr = seconds.toString();
-
-    if(minutes < 10) minstr = '0' + minstr;
-    if(seconds < 10) secstr = '0' + secstr;
-
-    return minstr + ':' + secstr;
-  }
-
   dismiss() {
     this.playing = false;
     this.viewCtrl.dismiss({'deleted':false});
+  }
+
+  formatTime(str){
+    return this.db.formatTime(str);
   }
 
   delete() {

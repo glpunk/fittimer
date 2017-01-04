@@ -13,7 +13,7 @@ import { DbStorage } from '../../services/DbStorage'
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{id: number, name: string, description: string}>;
+  items: Array<{id: number, name: string, description: string, time: string}>;
 
   constructor(
     public navCtrl: NavController, 
@@ -34,7 +34,8 @@ export class ListPage {
     this.db.getWorkouts().then((data) => {
       if(data.rows.length > 0) {
         for(var i = 0; i < data.rows.length; i++) {
-            this.items.push({id: data.rows.item(i).id, name: data.rows.item(i).name, description: data.rows.item(i).description});
+          let time_str = this.db.formatTime( (data.rows.item(i).minutes*60) + data.rows.item(i).seconds );
+          this.items.push({id: data.rows.item(i).id, name: data.rows.item(i).name, description: data.rows.item(i).description, time: time_str});
         }
       }
     }, (error) => {

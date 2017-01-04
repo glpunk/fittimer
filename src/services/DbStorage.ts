@@ -38,7 +38,7 @@ export class DbStorage{
   getWorkouts(): Promise<any> {
     console.log('getWorkouts');
     
-    return this.db.executeSql("SELECT * FROM workouts", [])
+    return this.db.executeSql("SELECT w.*, SUM(s.minutes) as minutes, SUM(s.seconds) as seconds FROM workouts w JOIN steps s ON s.id_workout = w.id GROUP BY s.id_workout", [])
                .then(response => response)
                .catch(this.handleError);
   }
@@ -81,6 +81,19 @@ export class DbStorage{
     return this.db.executeSql("delete from workouts WHERE id = ?", [id])
                .then(response => response)
                .catch(this.handleError);
+  }
+
+  formatTime(time) {
+    let minutes = Math.floor(time / 60);
+    let seconds = time - minutes * 60;
+
+    let minstr = minutes.toString();
+    let secstr = seconds.toString();
+
+    if(minutes < 10) minstr = '0' + minstr;
+    if(seconds < 10) secstr = '0' + secstr;
+
+    return minstr + ':' + secstr;
   }
 
   private handleError(error: any): Promise<any> {
