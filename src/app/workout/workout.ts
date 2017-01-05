@@ -1,5 +1,3 @@
-import { Step } from '../step/step'
-
 export class Workout {
   id: Number;
   name: String;

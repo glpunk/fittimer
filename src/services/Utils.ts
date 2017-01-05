@@ -1,4 +1,4 @@
-import {Injectable, Inject} from '@angular/core';
+import {Inject} from '@angular/core';
 import { ToastController } from 'ionic-angular';
 
 export class Utils{

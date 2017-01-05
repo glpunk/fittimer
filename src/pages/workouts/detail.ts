@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, AlertController } from 'ionic-angular';
 
-import { NativeAudio } from 'ionic-native';
+import { NativeAudio, PowerManagement } from 'ionic-native';
 
 import { DbStorage } from '../../services/DbStorage';
 import { Utils } from '../../services/Utils';
@@ -28,6 +28,7 @@ export class WorkoutDetailPage {
     public navParams: NavParams, 
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
+    public alertCtrl: AlertController,
     public db: DbStorage,
     public utils: Utils
 
@@ -45,6 +46,7 @@ export class WorkoutDetailPage {
   }
 
   play() {
+    PowerManagement.acquire();
     this.playing = true;
     this.nextSecond();
   }
@@ -55,6 +57,7 @@ export class WorkoutDetailPage {
   }
 
   reset() {
+    PowerManagement.release();
     this.getSteps();
     this.playing = false;
     this.currentStep = -1;
@@ -169,14 +172,34 @@ export class WorkoutDetailPage {
   }
 
   delete() {
-    this.db.deleteWorkout(this.selectedItem.id).then((data) => {
-      console.log(data);
-      if(data.rowsAffected == 1) {
-        this.viewCtrl.dismiss({'deleted':true});
-      }
-    }, (error) => {
-      console.log('deleteWorkout error', error);
-    }); 
+
+    let confirm = this.alertCtrl.create({
+      title: 'Are you sure?',
+      message: 'This workout will be deleted forever =(',
+      buttons: [
+        {
+          text: 'NO!',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'YESSS',
+          handler: () => {
+            this.db.deleteWorkout(this.selectedItem.id).then((data) => {
+              console.log(data);
+              if(data.rowsAffected == 1) {
+                this.viewCtrl.dismiss({'deleted':true});
+              }
+            }, (error) => {
+              console.log('deleteWorkout error', error);
+            });
+          }
+        }
+      ]
+    });
+    confirm.present();
+
   }
 
   colorCell(step) {

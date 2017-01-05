@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ViewController, NavParams } from 'ionic-angular';
 
-import { Workout } from '../../app/workout/workout';
 import { Step } from '../../app/step/step';
 
 import { DbStorage } from '../../services/DbStorage';
