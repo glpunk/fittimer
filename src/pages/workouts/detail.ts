@@ -127,7 +127,8 @@ export class WorkoutDetailPage {
           this.steps.push({
             name: item.name, 
             seconds: stepSeconds,
-            stepType: item.type
+            stepType: item.type,
+            color: item.color
           });
 
           this.totalSeconds += stepSeconds;
@@ -176,5 +177,22 @@ export class WorkoutDetailPage {
     }, (error) => {
       console.log('deleteWorkout error', error);
     }); 
+  }
+
+  colorCell(step) {
+
+    let color = '';
+    if(step.color == '#000000'){
+      color = 'white';
+    } else {
+      color = 'black'; 
+    }
+
+    let obj = {
+      'background-color': step.color,
+      'color': color
+    }
+
+    return obj;
   }
 }

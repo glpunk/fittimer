@@ -24,8 +24,10 @@
   </h3>
   
   <ion-list>
-    <ion-item ion-item *ngFor="let step of steps; let i = index">
+    <ion-item ion-item *ngFor="let step of steps; let i = index" [ngStyle]="colorCell(step)">
+      <div>
         <ion-icon name="arrow-round-forward" [hidden]="i != currentStep" item-left></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
+      </div>
     </ion-item>  
   </ion-list>
 
