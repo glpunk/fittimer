@@ -25,9 +25,9 @@
   
   <ion-list>
     <ion-item ion-item *ngFor="let step of steps; let i = index" [ngStyle]="colorCell(step)">
-      <div>
-        <ion-icon name="arrow-round-forward" [hidden]="i != currentStep" item-left></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
-      </div>
+        <ion-icon name="radio-button-off" [hidden]="i <= currentStep"></ion-icon>
+        <ion-icon name="radio" [hidden]="i != currentStep"></ion-icon>
+        <ion-icon name="checkmark-circle" [hidden]="i >= currentStep"></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
     </ion-item>  
   </ion-list>
 
