@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { NavController, NavParams, ViewController, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, AlertController, Content } from 'ionic-angular';
 
 import { NativeAudio, PowerManagement } from 'ionic-native';
 
@@ -16,12 +16,14 @@ import { EditWorkout } from '../workouts/edit';
   templateUrl: 'detail.html'
 })
 export class WorkoutDetailPage {
+  @ViewChild(Content) content: Content;
   selectedItem: any;
   steps: Array<any>;
   totalSeconds: number;
   currentStep: number;
   speaker;
   playing;
+  interval;
 
   constructor(
     public navCtrl: NavController, 
@@ -48,12 +50,16 @@ export class WorkoutDetailPage {
   play() {
     PowerManagement.acquire();
     this.playing = true;
-    this.nextSecond();
+
+    let scope = this;
+    this.interval = setInterval(function(){
+      scope.nextSecond();
+    }, 1000);
   }
   
   pause() {
     this.playing = !this.playing;
-    this.nextSecond();
+    clearInterval(this.interval);
   }
 
   reset() {
@@ -61,6 +67,7 @@ export class WorkoutDetailPage {
     this.getSteps();
     this.playing = false;
     this.currentStep = -1;
+    clearInterval(this.interval);
   }
 
   nextStep() {
@@ -79,7 +86,20 @@ export class WorkoutDetailPage {
       this.speaker.add('next step');
       this.speaker.add(this.steps[this.currentStep+1].name);
     }
-    this.nextSecond();
+
+    this.scrollToItem();
+  }
+
+  scrollToItem() {
+    try{
+      let item = document.getElementsByClassName('active')[0];
+      let screenPosition = item.getBoundingClientRect();
+
+      this.content.scrollTo(screenPosition.top,0,300);
+
+      console.log('active', item);
+      console.log('screenPosition', screenPosition);
+    } catch(err){}
   }
 
   nextSecond() {
@@ -97,12 +117,6 @@ export class WorkoutDetailPage {
     this.playSounds(s.seconds);
 
     let scope = this;
-    
-    setTimeout(function(){
-      if(scope.playing){
-        scope.nextSecond();
-      }
-    }, 1000);
   }
 
   playSounds(sec) {
@@ -162,8 +176,14 @@ export class WorkoutDetailPage {
     modal.present();
   }
 
+  willLeave() {
+    this.playing = false;
+    clearInterval(this.interval);
+  }
+
   dismiss() {
     this.playing = false;
+    clearInterval(this.interval);
     this.viewCtrl.dismiss({'deleted':false});
   }
 

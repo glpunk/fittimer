@@ -2,32 +2,35 @@
   <ion-navbar>
     <ion-title>Workout detail</ion-title>
   </ion-navbar>
+
+    <h2 text-center *ngIf="selectedItem">
+      {{selectedItem.name}}
+    </h2>
+    <h3 text-center *ngIf="selectedItem">
+      <ion-badge [ngStyle]="{'font-size': '200%'}" item-center>{{formatTime(totalSeconds)}}</ion-badge>
+    </h3>
+    <h3 text-center>
+      <button ion-button icon-only (click)="play()" [hidden]="playing == true">
+        <ion-icon name="play"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="pause()" [hidden]="playing == false">
+        <ion-icon name="pause"></ion-icon>
+      </button>
+      <button ion-button icon-only (click)="reset()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </h3>
 </ion-header>
 
-<ion-content>
-  <h2 text-center *ngIf="selectedItem">
-    {{selectedItem.name}}
-  </h2>
-  <h3 text-center *ngIf="selectedItem">
-    <ion-badge item-center>{{formatTime(totalSeconds)}}</ion-badge>
-  </h3>
-  <h3 text-center>
-    <button ion-button icon-only (click)="play()" [hidden]="playing == true">
-      <ion-icon name="play"></ion-icon>
-    </button>
-    <button ion-button icon-only (click)="pause()" [hidden]="playing == false">
-      <ion-icon name="pause"></ion-icon>
-    </button>
-    <button ion-button icon-only (click)="reset()">
-      <ion-icon name="refresh"></ion-icon>
-    </button>
-  </h3>
-  
+
+<ion-content> 
   <ion-list>
-    <ion-item ion-item *ngFor="let step of steps; let i = index" [ngStyle]="colorCell(step)">
+    <ion-item [ngClass]="{'active': i == currentStep }" ion-item *ngFor="let step of steps; let i = index" [ngStyle]="colorCell(step)">
         <ion-icon name="radio-button-off" [hidden]="i <= currentStep"></ion-icon>
         <ion-icon name="radio" [hidden]="i != currentStep"></ion-icon>
-        <ion-icon name="checkmark-circle" [hidden]="i >= currentStep"></ion-icon> {{ step.name }} {{ formatTime(step.seconds) }}
+        <ion-icon name="checkmark-circle" [hidden]="i >= currentStep"></ion-icon> 
+        {{ step.name }}
+        <ion-badge color="dark" item-right>{{ formatTime(step.seconds) }}</ion-badge> 
     </ion-item>  
   </ion-list>
 
