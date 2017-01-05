@@ -24,7 +24,49 @@ ion-content.cards-bg {
   background-color: transparent !important;
 }
 
-/* gray http://htmlcolorcodes.com/ */
-#alert-input-0-1{
+/* white http://htmlcolorcodes.com/ */
+.alert-radio-button:nth-child(1){
+  background-color: #FFFFFF;
+}
+
+/* gray */
+.alert-radio-button:nth-child(2){
   background-color: #808B96;
 }
+
+/*orange*/
+.alert-radio-button:nth-child(3){
+  background-color: #EB984E;
+}
+
+/*yellow*/
+.alert-radio-button:nth-child(4){
+  background-color: #F7DC6F;
+}
+
+/*green*/
+.alert-radio-button:nth-child(5){
+  background-color: #82E0AA;
+}
+
+/*blue*/
+.alert-radio-button:nth-child(6){
+  background-color: #85C1E9;
+}
+
+/*purple*/
+.alert-radio-button:nth-child(7){
+  background-color: #BB8FCE;
+}
+
+/*red*/
+.alert-radio-button:nth-child(8){
+  background-color: #E74C3C;
+}
+
+/*black*/
+.alert-radio-button:nth-child(9){
+  background-color: #000000;
+  color: white;
+}
+  

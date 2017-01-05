@@ -39,6 +39,7 @@ export class EditWorkout {
           step.stepType = item.type;
           step.minutes = item.minutes;
           step.seconds = item.seconds;
+          step.color = item.color;
 
           this.objectToEdit.steps.push(step);
         }

@@ -41,15 +41,7 @@ export class DbStorage{
     return this.db.executeSql("SELECT w.*, SUM(s.minutes) as minutes, SUM(s.seconds) as seconds FROM workouts w JOIN steps s ON s.id_workout = w.id GROUP BY s.id_workout", [])
                .then(response => response)
                .catch(this.handleError);
-  }
-
-  getSteps(id): Promise<any> {
-    console.log('getSteps', id);
-    
-    return this.db.executeSql("SELECT * FROM steps WHERE id_workout = ? order by position ASC", [id])
-               .then(response => response)
-               .catch(this.handleError);
-  }  
+  } 
 
   createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
@@ -71,16 +63,6 @@ export class DbStorage{
               return response;
 
             }).catch(this.handleError);
-  }
-
-  private createStep(step, w_id, i){
-    console.log('createStep', step);
-    return this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, position, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i]);
-  }
-
-  private updateStep(step, w_id, i){
-    console.log('updateStep', step);
-    return this.db.executeSql("UPDATE steps SET id_workout = ?, name = ?, type = ?, minutes = ?, seconds = ?, color = ?, position = ?, updatedAt = date('now') WHERE id = ?", [w_id, step.name, step.stepType, step.minutes, step.seconds, '', i, step.id]);
   }
 
   editWorkout(obj): Promise<any> {
@@ -118,6 +100,24 @@ export class DbStorage{
     return this.db.executeSql("delete from workouts WHERE id = ?", [id])
                .then(response => response)
                .catch(this.handleError);
+  }
+
+  getSteps(id): Promise<any> {
+    console.log('getSteps', id);
+    
+    return this.db.executeSql("SELECT * FROM steps WHERE id_workout = ? order by position ASC", [id])
+               .then(response => response)
+               .catch(this.handleError);
+  } 
+
+  private createStep(step, w_id, i){
+    console.log('createStep', step);
+    return this.db.executeSql("INSERT INTO steps (id_workout, name, type, minutes, seconds, color, position, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, ?, ?, ?, date('now'), date('now'), '')", [w_id, step.name, step.stepType, step.minutes, step.seconds, step.color, i]);
+  }
+
+  private updateStep(step, w_id, i){
+    console.log('updateStep', step);
+    return this.db.executeSql("UPDATE steps SET id_workout = ?, name = ?, type = ?, minutes = ?, seconds = ?, color = ?, position = ?, updatedAt = date('now') WHERE id = ?", [w_id, step.name, step.stepType, step.minutes, step.seconds, step.color, i, step.id]);
   }
 
   private handleError(error: any): Promise<any> {
