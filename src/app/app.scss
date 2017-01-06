@@ -68,8 +68,6 @@ workout-detail img, .card-background-page img{
   -o-filter: brightness(40%);
   -ms-filter: brightness(40%);
   filter: brightness(40%);
-
-  z-index: -100;
 }
 
 workout-detail{
@@ -77,12 +75,31 @@ workout-detail{
     margin-bottom: 0px;
   }
 
+  img{
+    z-index: -100;
+    top:0px;
+  }
+
   ion-header{
     overflow: hidden;
   }
 
-  h2{
+  ion-list ion-item .item-inner{
+    font-size: 150%;
+  }
+
+  ion-list ion-item .badge {
+    font-size: 80%;
+  }
+
+  h2, h6{
     color: white;
+  }
+  h2{
+    margin-bottom: 0px;
+  }
+  h6{
+    margin-top: 0px;
   }
 }
 
