@@ -90,20 +90,20 @@ export class WorkoutDetailPage {
     this.scrollToItem();
   }
 
+  ionViewWillLeave() {
+    this.reset();
+  }
+
   scrollToItem() {
     try{
       let item = document.getElementsByClassName('active')[0];
-      let screenPosition = item.getBoundingClientRect();
+      //let screenPosition = item.getBoundingClientRect();
 
-      this.content.scrollTo(screenPosition.top,0,300);
-
-      console.log('active', item);
-      console.log('screenPosition', screenPosition);
+      this.content.scrollTo(0,(item.clientHeight+1)*this.currentStep,300);
     } catch(err){}
   }
 
   nextSecond() {
-    console.log('nextSecond', this.totalSeconds);
     let s = this.steps[this.currentStep];
 
     if(this.currentStep == -1 || s.seconds == 0){
@@ -115,8 +115,6 @@ export class WorkoutDetailPage {
     s.seconds--;
     
     this.playSounds(s.seconds);
-
-    let scope = this;
   }
 
   playSounds(sec) {
@@ -131,7 +129,6 @@ export class WorkoutDetailPage {
   }
 
   getSteps() {
-    console.log('selectedItem',this.selectedItem);
     this.db.getSteps(this.selectedItem.id).then((data) => {
       if(data.rows.length > 0) {
         this.steps = [];
@@ -176,11 +173,6 @@ export class WorkoutDetailPage {
     modal.present();
   }
 
-  willLeave() {
-    this.playing = false;
-    clearInterval(this.interval);
-  }
-
   dismiss() {
     this.playing = false;
     clearInterval(this.interval);
@@ -207,7 +199,6 @@ export class WorkoutDetailPage {
           text: 'YESSS',
           handler: () => {
             this.db.deleteWorkout(this.selectedItem.id).then((data) => {
-              console.log(data);
               if(data.rowsAffected == 1) {
                 this.viewCtrl.dismiss({'deleted':true});
               }
