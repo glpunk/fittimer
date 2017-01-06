@@ -19,4 +19,10 @@ export class StepFormComponent {
 
   	return min + ':' + sec;
   }
+
+  defaultRest(step) {
+    step.minutes = 0;
+    step.seconds = 15;
+    step.name = 'Rest';
+  }
 }
