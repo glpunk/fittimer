@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { NavController, NavParams, ViewController, ModalController, AlertController, Content } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, AlertController, Content, ActionSheetController } from 'ionic-angular';
 
 import { NativeAudio, PowerManagement } from 'ionic-native';
 
@@ -31,6 +31,7 @@ export class WorkoutDetailPage {
     public viewCtrl: ViewController,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
+    public actionSheetCtrl: ActionSheetController,
     public db: DbStorage,
     public utils: Utils
 
@@ -226,5 +227,35 @@ export class WorkoutDetailPage {
     }
 
     return obj;
+  }
+
+  presentActionSheet() {
+    console.log('presentActionSheet');
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Modify workout',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: 'trash',
+          handler: () => {
+            this.delete();
+          }
+        },{
+          text: 'Edit',
+          icon: 'create',
+          handler: () => {
+            this.edit();
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }

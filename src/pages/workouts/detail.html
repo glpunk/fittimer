@@ -1,6 +1,11 @@
 <ion-header>
   <ion-navbar>
     <ion-title>Workout detail</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only  (click)="presentActionSheet()">
+        <ion-icon name="build"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
     <h2 text-center *ngIf="selectedItem">
@@ -33,20 +38,4 @@
         <ion-badge color="dark" item-right>{{ formatTime(step.seconds) }}</ion-badge> 
     </ion-item>  
   </ion-list>
-
-  <ion-row>
-    <ion-col>
-      <button (click)="edit()" ion-button icon-left text-center color="default">
-        <ion-icon name="create"></ion-icon>
-        <div>Edit workout</div>
-      </button>
-    </ion-col>
-    <ion-col>
-      <button (click)="delete()" ion-button icon-left text-center color="danger">
-        <ion-icon name="trash"></ion-icon>
-        <div>Remove workout</div>
-      </button>
-    </ion-col>
-  </ion-row>
-
 </ion-content>
