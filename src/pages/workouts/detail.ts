@@ -97,8 +97,6 @@ export class WorkoutDetailPage {
   scrollToItem() {
     try{
       let item = document.getElementsByClassName('active')[0];
-      //let screenPosition = item.getBoundingClientRect();
-
       this.content.scrollTo(0,(item.clientHeight+1)*this.currentStep,300);
     } catch(err){}
   }
