@@ -12,6 +12,14 @@
     <ion-label fixed>Description:</ion-label>
     <ion-input type="text" placeholder="Description" [(ngModel)]="workout.description"></ion-input>
   </ion-item>
+
+    <ion-item>
+    <ion-img src="{{workout.img}}"></ion-img>
+    <button (click)="takePicture()" block ion-button icon-left text-center outline color="dark">
+      <ion-icon name="camera"></ion-icon>
+      <div>Set background</div>
+    </button>
+  </ion-item>
 </ion-list>
 
 <ion-list>

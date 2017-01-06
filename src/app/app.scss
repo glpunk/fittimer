@@ -20,13 +20,69 @@ ion-content.cards-bg {
   background-color: #f4f4f7;
 }
 
+.card-background-page {
+
+  ion-card {
+    position: relative;
+    text-align: center;
+    height: 170px;
+    background-color: gray;
+  }
+
+  .card-title {
+    position: absolute;
+    top: 36%;
+    font-size: 2.0em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+  }
+
+  .card-subtitle{
+    top: 52%;
+  }
+  .card-time {
+    top: 62%;
+  }
+  .card-subtitle, .card-time {
+    font-size: 1.0em;
+    position: absolute;
+    width: 100%;
+    color: #fff;
+  }
+
+}
+
+
 .item .item-content {
   background-color: transparent !important;
+}
+
+workout-detail img, .card-background-page img{
+  position: absolute;
+  top: -20%;
+  height: auto;
+  width: 100%;
+  -webkit-filter: brightness(40%);
+  -moz-filter: brightness(40%);
+  -o-filter: brightness(40%);
+  -ms-filter: brightness(40%);
+  filter: brightness(40%);
+
+  z-index: -100;
 }
 
 workout-detail{
   .list-ios{
     margin-bottom: 0px;
+  }
+
+  ion-header{
+    overflow: hidden;
+  }
+
+  h2{
+    color: white;
   }
 }
 

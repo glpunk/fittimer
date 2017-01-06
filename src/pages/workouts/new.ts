@@ -33,7 +33,7 @@ export class NewWorkout {
     step.name = 'get ready';
     step.stepType = 'rest';
     step.minutes = 0;
-    step.seconds = 0;
+    step.seconds = 30;
     step.color = 'white';
 
     this.selectedWorkout.steps.push(step);

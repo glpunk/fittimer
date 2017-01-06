@@ -46,7 +46,7 @@ export class DbStorage{
   createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
 
-    return this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES (?, ?, 0, 'img', date('now'), date('now'), '')", [obj.name, obj.description])
+    return this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES (?, ?, 0, ?, date('now'), date('now'), '')", [obj.name, obj.description, obj.img])
             .then( (response) => {
               console.log(response);
 
@@ -68,7 +68,7 @@ export class DbStorage{
   editWorkout(obj): Promise<any> {
     console.log('DbStorage.editWorkout', obj);
 
-    return this.db.executeSql("UPDATE workouts SET name = ?, description = ?, favorite = ?,  img = ?,  updatedAt = date('now') WHERE id = ?", [obj.name, obj.description, 0, '', obj.id])
+    return this.db.executeSql("UPDATE workouts SET name = ?, description = ?, favorite = ?,  img = ?,  updatedAt = date('now') WHERE id = ?", [obj.name, obj.description, 0, obj.img, obj.id])
             .then( (response) => {
               console.log(response);
 

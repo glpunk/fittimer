@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 
+import { Camera } from 'ionic-native';
+
 import { Workout } from './workout';
 import { Step } from '../step/step';
 
@@ -14,6 +16,19 @@ export class WorkoutFormComponent {
   constructor (){
   }
 
+  takePicture() {
+    Camera.getPicture({
+        destinationType: Camera.DestinationType.DATA_URL
+    }).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64:
+     //console.log('imageData', imageData);
+     this.workout.img = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+     console.log('takePicture', err);
+    });
+  }
+
   addStep() {
     let step = new Step();
     step.id = 0;
@@ -21,6 +36,7 @@ export class WorkoutFormComponent {
     step.stepType = 'exercise';
     step.minutes = 0;
     step.seconds = 0;
+    step.color = 'white';
 
     this.workout.steps.push(step);
   }
