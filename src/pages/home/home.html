@@ -26,13 +26,13 @@
   <ion-icon name="star"></ion-icon> Favorites
   </h3>
 
-  <ion-card>
-    <img src=""/>
-    <div class="card-title">Burn Fat</div>
-    <div class="card-subtitle">Crossrope starter set</div>
+  <ion-card *ngFor="let item of favorites" (click)="itemTapped($event, item)">
+    <img src="{{item.img}}"/>
+    <div class="card-title">{{item.name}}</div>
+    <div class="card-subtitle">{{item.description}}</div>
     <div class="card-time">
       <ion-icon name="timer"></ion-icon>
-      13:00
+      {{item.time}}
     </div>
   </ion-card>
 

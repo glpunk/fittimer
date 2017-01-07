@@ -13,6 +13,12 @@
     <ion-input type="text" placeholder="Description" [(ngModel)]="workout.description"></ion-input>
   </ion-item>
 
+  <ion-item>
+    <ion-label>Favorite</ion-label>
+  <ion-toggle color='secondary' [(ngModel)]="workout.favorite" checked="false"></ion-toggle>
+
+</ion-item>
+
     <ion-item>
     <ion-img src="{{workout.img}}"></ion-img>
     <button (click)="takePicture()" block ion-button icon-left text-center outline color="dark">

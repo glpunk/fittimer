@@ -14,7 +14,7 @@ import { Utils } from '../../services/Utils'
 export class ListPage {
   selectedItem: any;
   icons: string[];
-  items: Array<{id: number, name: string, description: string, time: string, img: string}>;
+  items: Array<{id: number, name: string, description: string, time: string, img: string, favorite: boolean}>;
 
   constructor(
     public navCtrl: NavController, 
@@ -44,7 +44,8 @@ export class ListPage {
             name: data.rows.item(i).name, 
             description: data.rows.item(i).description, 
             time: time_str,
-            img: data.rows.item(i).img
+            img: data.rows.item(i).img,
+            favorite: data.rows.item(i).favorite,
           });
         }
       }

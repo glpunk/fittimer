@@ -43,10 +43,18 @@ export class DbStorage{
                .catch(this.handleError);
   } 
 
+  getFavorites(): Promise<any> {
+    console.log('getFavorites');
+    
+    return this.db.executeSql("SELECT w.*, SUM(s.minutes) as minutes, SUM(s.seconds) as seconds FROM workouts w JOIN steps s ON s.id_workout = w.id WHERE w.favorite = 'true'  GROUP BY s.id_workout", [])
+               .then(response => response)
+               .catch(this.handleError);
+  }
+
   createWorkout(obj): Promise<any> {
     console.log('DbStorage.createWorkout', obj);
 
-    return this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES (?, ?, 0, ?, date('now'), date('now'), '')", [obj.name, obj.description, obj.img])
+    return this.db.executeSql("INSERT INTO workouts (name, description, favorite, img, createdAt, updatedAt, lastRun) VALUES (?, ?, ?, ?, date('now'), date('now'), '')", [obj.name, obj.description, obj.favorite, obj.img])
             .then( (response) => {
               console.log(response);
 
@@ -68,7 +76,7 @@ export class DbStorage{
   editWorkout(obj): Promise<any> {
     console.log('DbStorage.editWorkout', obj);
 
-    return this.db.executeSql("UPDATE workouts SET name = ?, description = ?, favorite = ?,  img = ?,  updatedAt = date('now') WHERE id = ?", [obj.name, obj.description, 0, obj.img, obj.id])
+    return this.db.executeSql("UPDATE workouts SET name = ?, description = ?, favorite = ?,  img = ?,  updatedAt = date('now') WHERE id = ?", [obj.name, obj.description, obj.favorite, obj.img, obj.id])
             .then( (response) => {
               console.log(response);
 
