@@ -33,31 +33,36 @@
     Steps
   </ion-list-header>
 
-  <ion-card *ngFor="let step of workout.steps; let i = index">
-    <ion-card-content>
-      <step-form [step]="step"></step-form>
-        <ion-row>
-          <ion-col>
-            <button (click)="stepUp(i)" [disabled]="i == 0" ion-button icon-left clear small center text-center>
-              <ion-icon name="arrow-up"></ion-icon>
-              <div>up</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button (click)="stepDown(i)" [disabled]="i == workout.steps.length-1" ion-button icon-left clear small center text-center>
-              <ion-icon name="arrow-down"></ion-icon>
-              <div>down</div>
-            </button>
-          </ion-col>
-          <ion-col>
-            <button (click)="removeStep(i)" ion-button icon-left clear small center text-center>
-              <ion-icon name="trash"></ion-icon>
-              <div>remove</div>
-            </button>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-  </ion-card>
+  <div *ngFor="let step of workout.steps; let i = index">
+    
+    <button ion-button full small color="dark" clear [hidden]='selected == i' (click)="showCard(i)">{{step.name}} {{formatTime(step)}} ({{step.stepType}})</button>
+    
+    <ion-card class='step' [hidden]='selected != i'>
+      <ion-card-content>
+        <step-form [step]="step"></step-form>
+          <ion-row>
+            <ion-col>
+              <button (click)="stepUp(i)" [disabled]="i == 0" ion-button icon-left clear small center text-center>
+                <ion-icon name="arrow-up"></ion-icon>
+                <div>up</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button (click)="stepDown(i)" [disabled]="i == workout.steps.length-1" ion-button icon-left clear small center text-center>
+                <ion-icon name="arrow-down"></ion-icon>
+                <div>down</div>
+              </button>
+            </ion-col>
+            <ion-col>
+              <button (click)="removeStep(i)" ion-button icon-left clear small center text-center>
+                <ion-icon name="trash"></ion-icon>
+                <div>remove</div>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-card-content>
+    </ion-card>
+  </div>
 
   <div padding>
     <button (click)="addStep()" block ion-button icon-left text-center outline color="dark">

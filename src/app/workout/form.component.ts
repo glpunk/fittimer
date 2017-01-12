@@ -5,6 +5,8 @@ import { Camera } from 'ionic-native';
 import { Workout } from './workout';
 import { Step } from '../step/step';
 
+import { Utils } from '../../services/Utils';
+
 @Component({
   selector: 'workout-form',
   templateUrl: 'form.html'
@@ -12,8 +14,9 @@ import { Step } from '../step/step';
 export class WorkoutFormComponent {
   @Input()
   workout: Workout;
+  selected = 0;
 
-  constructor (){
+  constructor (public utils: Utils){
   }
 
   takePicture() {
@@ -29,6 +32,11 @@ export class WorkoutFormComponent {
     });
   }
 
+  showCard(i){
+    this.selected = i;
+
+  }
+
   addStep() {
     let step = new Step();
     step.id = 0;
@@ -39,6 +47,8 @@ export class WorkoutFormComponent {
     step.color = 'white';
 
     this.workout.steps.push(step);
+
+    this.showCard(this.workout.steps.length-1);
   }
 
   stepUp(index) {
@@ -59,5 +69,10 @@ export class WorkoutFormComponent {
 
   removeStep(index) {
     this.workout.steps.splice(index,1);
+  }
+
+  formatTime(step){
+    let time = step.minutes*60 + step.seconds;
+    return this.utils.formatTime(time);
   }
 }
