@@ -121,6 +121,14 @@ export class DbStorage{
                .catch(this.handleError);
   }
 
+  getActivities(limit): Promise<any> {
+    console.log('getActivities', limit);
+    
+    return this.db.executeSql("SELECT a.*, w.name, w.description, w.img FROM activities a JOIN workouts w ON a.id_workout = w.id ORDER BY createdAt DESC LIMIT ?", [limit])
+               .then(response => response)
+               .catch(this.handleError);
+  }
+
   createActivity(obj): Promise<any> {
     console.log('DbStorage.createActivity', obj);
 
