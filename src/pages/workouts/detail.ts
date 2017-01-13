@@ -20,6 +20,7 @@ export class WorkoutDetailPage {
   selectedItem: any;
   steps: Array<any>;
   totalSeconds: number;
+  elapsedSeconds: number;
   currentStep: number;
   speaker;
   playing;
@@ -34,13 +35,14 @@ export class WorkoutDetailPage {
     public actionSheetCtrl: ActionSheetController,
     public db: DbStorage,
     public utils: Utils
-
     ) {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedItem = navParams.get('item');
     this.getSteps();
     this.currentStep = -1;
     this.speaker = new Speaker();
+
+    this.elapsedSeconds = 0;
 
     this.playing = false; 
 
@@ -75,8 +77,7 @@ export class WorkoutDetailPage {
     this.currentStep++;
 
     if(this.currentStep == this.steps.length){
-      this.speaker.add('workout completed');
-      this.reset();
+      this.completed();
       return;
     }
 
@@ -89,6 +90,24 @@ export class WorkoutDetailPage {
     }
 
     this.scrollToItem();
+  }
+
+  completed(){
+    this.speaker.add('workout completed');
+
+    let completed = {
+      id_workout: this.selectedItem.id,
+      seconds: this.elapsedSeconds,
+      completed: true,
+    }
+
+    this.db.createActivity(completed).then((data) => {
+      console.log('createActivity success', data);
+    }, (error) => {
+      console.log('createActivity error', error);
+    });
+
+    this.reset();
   }
 
   ionViewWillLeave() {
@@ -111,6 +130,7 @@ export class WorkoutDetailPage {
     }
 
     this.totalSeconds--;
+    this.elapsedSeconds++;
     s.seconds--;
     
     this.playSounds(s.seconds);

@@ -25,6 +25,9 @@ export class DbStorage{
     tables.push("CREATE TABLE IF NOT EXISTS workouts (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, description TEXT, favorite BOOLEAN, img TEXT, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
     tables.push("CREATE TABLE IF NOT EXISTS steps (id INTEGER PRIMARY KEY AUTOINCREMENT, id_workout INTEGER, name TEXT, type TEXT, minutes INTEGER, seconds INTEGER, color INTEGER, position INTEGER, createdAt TEXT, updatedAt TEXT, lastRun TEXT)");
     tables.push("CREATE INDEX workout_index ON steps (id_workout);");
+    tables.push("CREATE TABLE IF NOT EXISTS activities (id INTEGER PRIMARY KEY AUTOINCREMENT, id_workout INTEGER, seconds INTEGER, completed BOOLEAN, createdAt TEXT)");
+    tables.push("CREATE INDEX workout_index ON activities (id_workout);");
+    tables.push("CREATE INDEX createdat_index ON activities (createdAt);");
 
     for(let i in tables){
       this.db.executeSql(tables[i], {}).then((data) => {
@@ -116,7 +119,17 @@ export class DbStorage{
     return this.db.executeSql("SELECT * FROM steps WHERE id_workout = ? order by position ASC", [id])
                .then(response => response)
                .catch(this.handleError);
-  } 
+  }
+
+  createActivity(obj): Promise<any> {
+    console.log('DbStorage.createActivity', obj);
+
+    return this.db.executeSql("INSERT INTO activities(id_workout, seconds, completed, createdAt) VALUES (?, ?, ?, date('now'))", [obj.id_workout, obj.seconds, obj.completed])
+            .then( (response) => {
+              console.log(response);
+              return response;
+            }).catch(this.handleError);
+  }
 
   private createStep(step, w_id, i){
     console.log('createStep', step);
