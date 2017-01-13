@@ -17,6 +17,9 @@
     <div class="card-title">{{item.name}}</div>
     <div class="card-subtitle">{{item.description}}</div>
     <div class="card-time">
+      {{item.when | amTimeAgo}}
+    </div>
+    <div class="card-time-total">
       <ion-icon name="timer"></ion-icon>
       {{item.time}}
     </div>

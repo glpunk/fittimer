@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { DbStorage} from '../services/DbStorage'
 import { Utils} from '../services/Utils'
+import { MomentModule } from 'angular2-moment/moment.module';
 
 import { MyApp } from './app.component';
 import { WorkoutDetailPage } from '../pages/workouts/detail';
@@ -27,7 +28,8 @@ import { StepFormComponent } from './step/form.component';
     StepFormComponent
   ],
   imports: [
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

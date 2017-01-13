@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
 import { WorkoutDetailPage } from '../workouts/detail';
+import { MomentModule } from 'angular2-moment/moment.module';
 
-import { DbStorage } from '../../services/DbStorage'
-import { Utils } from '../../services/Utils'
+import { DbStorage } from '../../services/DbStorage';
+import { Utils } from '../../services/Utils';
 
 @Component({
   selector: 'page-home',
@@ -17,7 +18,8 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,
   	public db: DbStorage,
-    public utils: Utils
+    public utils: Utils,
+    public moment: MomentModule
   ) {
 
   }
@@ -67,7 +69,7 @@ export class HomePage {
             description: data.rows.item(i).description, 
             time: time_str,
             img: data.rows.item(i).img,
-            when: data.rows.item(i).createdAt,
+            when: data.rows.item(i).createdAt
           });
         }
       }
