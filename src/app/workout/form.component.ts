@@ -34,7 +34,6 @@ export class WorkoutFormComponent {
 
   showCard(i){
     this.selected = i;
-
   }
 
   addStep() {
@@ -65,6 +64,11 @@ export class WorkoutFormComponent {
 
     this.workout.steps[index+1] = i1;
     this.workout.steps[index] = i2;
+  }
+
+  copyStep(index) {
+    let copy = Object.assign({}, this.workout.steps[index]);
+    this.workout.steps.push(copy);
   }
 
   removeStep(index) {
