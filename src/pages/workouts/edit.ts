@@ -26,6 +26,7 @@ export class EditWorkout {
   getSteps() {
     this.db.getSteps(this.objectToEdit.id).then((data) => {
       this.objectToEdit.steps = [];
+      this.objectToEdit.stepsToDelete = [];
 
       if(data.rows.length > 0) {
 
