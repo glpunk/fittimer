@@ -99,16 +99,6 @@ export class DbStorage{
                 console.log(res);
               }
 
-              for(let step of obj.steps){
-                if( step.id == 0){
-                  res = this.createStep(step, w_id, i);
-                } else {
-                  res = this.updateStep(step, w_id, i);
-                }
-                i++;
-                console.log(res);
-              }
-
               if(obj.stepsToDelete.length > 0){
                 for(let step_id of obj.stepsToDelete){
                   this.deleteStep(step_id);
