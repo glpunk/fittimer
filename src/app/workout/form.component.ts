@@ -68,6 +68,7 @@ export class WorkoutFormComponent {
 
   copyStep(index) {
     let copy = Object.assign({}, this.workout.steps[index]);
+    copy.id = 0;
     this.workout.steps.push(copy);
   }
 
