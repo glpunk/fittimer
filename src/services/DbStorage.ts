@@ -98,6 +98,13 @@ export class DbStorage{
                 i++;
                 console.log(res);
               }
+
+              if(obj.stepsToDelete.length > 0){
+                for(let step_id of obj.stepsToDelete){
+                  this.deleteStep(step_id);
+                }  
+              }
+              
               return response;
 
             }).catch(this.handleError);
@@ -147,6 +154,11 @@ export class DbStorage{
   private updateStep(step, w_id, i){
     console.log('updateStep', step);
     return this.db.executeSql("UPDATE steps SET id_workout = ?, name = ?, type = ?, minutes = ?, seconds = ?, color = ?, position = ?, updatedAt = date('now') WHERE id = ?", [w_id, step.name, step.stepType, step.minutes, step.seconds, step.color, i, step.id]);
+  }
+
+  private deleteStep(s_id){
+    console.log('deleteStep', s_id);
+    return this.db.executeSql("DELETE FROM steps WHERE id = ?", [s_id]);
   }
 
   private handleError(error: any): Promise<any> {

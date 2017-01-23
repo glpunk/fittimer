@@ -68,11 +68,17 @@ export class WorkoutFormComponent {
 
   copyStep(index) {
     let copy = Object.assign({}, this.workout.steps[index]);
+    copy.id = 0;
     this.workout.steps.push(copy);
   }
 
   removeStep(index) {
+
+    let id = this.workout.steps[index].id;
     this.workout.steps.splice(index,1);
+    if(id > 0){
+      this.workout.stepsToDelete.push(id);
+    }
   }
 
   formatTime(step){

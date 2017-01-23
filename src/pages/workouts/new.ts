@@ -20,7 +20,8 @@ export class NewWorkout {
       createdAt: new Date(),
       updatedAt: new Date(),
       lastRun: new Date(),
-      steps: []
+      steps: [],
+      stepsToDelete: []
     };
 
   constructor(

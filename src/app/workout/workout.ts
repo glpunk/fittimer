@@ -8,4 +8,5 @@ export class Workout {
   updatedAt: Date;
   lastRun: Date;
   steps: Array<any>;
+  stepsToDelete: Array<any>;
 }
